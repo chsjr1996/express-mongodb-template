@@ -20,7 +20,7 @@ import AppError from '../utils/helpers/AppError';
 import { whitelist } from '../utils/validations/config';
 
 @JsonController('/users')
-// @UseBefore(AuthMiddleware)
+@UseBefore(AuthMiddleware)
 export default class UserController {
   @Post()
   public async create(
