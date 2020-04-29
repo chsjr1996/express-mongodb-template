@@ -1,5 +1,5 @@
 {
-  "name": "express-decorators-mongoose",
+  "name": "express-template",
   "version": "0.0.1",
   "description": "Express server with mongoose and decorators for routing.",
   "repository": {
@@ -11,6 +11,7 @@
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
@@ -37,7 +38,8 @@
     "tsc:compile": "tsc",
     "tsc:watch": "tsc -w",
     "start": "node -r dotenv/config dist/Server.js",
-    "start:dev": "concurrently --names 'tsc:watch,nodemon' --prefix name 'npm run tsc:watch' 'npm run start:nodemon'",
+    "start:dev": "cross-env NODE_ENV=development concurrently --names 'tsc:watch,nodemon' --prefix name 'npm run tsc:watch' 'npm run start:nodemon'",
+    "start:prod": "cross-env NODE_ENV=production concurrently --names 'tsc:watch,nodemon' --prefix name 'npm run tsc:watch' 'npm run start:nodemon'",
     "start:nodemon": "nodemon -r dotenv/config dist/Server.js"
   },
   "keywords": [
