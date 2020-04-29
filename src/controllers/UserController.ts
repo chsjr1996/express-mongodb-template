@@ -9,17 +9,24 @@ import {
   Put,
   Delete,
   Res,
+  BodyOptions,
 } from 'routing-controllers';
 import AuthMiddleware from '../middlewares/AuthMiddleware';
+import CreateUserRequest from '../requests/CreateUserRequest';
+import UpdateUserRequest from '../requests/UpdateUserRequest';
 import UserModel from '../models/UserModel';
 import Responses from '../utils/builders/Responses';
 import AppError from '../utils/helpers/AppError';
+import { whitelist } from '../utils/validations/config';
 
 @JsonController('/users')
-@UseBefore(AuthMiddleware)
+// @UseBefore(AuthMiddleware)
 export default class UserController {
   @Post()
-  public async create(@Body() request: any, @Res() res: Response) {
+  public async create(
+    @Body() request: CreateUserRequest,
+    @Res() res: Response
+  ) {
     const user = await UserModel.create(request);
     return Responses.Success(res, user);
   }
@@ -40,7 +47,7 @@ export default class UserController {
   @Put('/:id')
   public async update(
     @Param('id') id: string,
-    @Body() request: any,
+    @Body(whitelist) request: UpdateUserRequest,
     @Res() res: Response
   ) {
     const user = await UserModel.findByIdAndUpdate(id, request, {

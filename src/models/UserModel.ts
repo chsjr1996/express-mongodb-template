@@ -36,20 +36,16 @@ class UserModel implements IModel {
       },
       username: {
         type: String,
-        required: [true, 'Username is required'],
         unique: true,
         trim: true,
-        validate: [validator.isEmail, 'Please provide a email'],
       },
       password: {
         type: String,
-        required: [true, 'Password is required'],
         select: false,
       },
       passwordChangedAt: Date,
       userType: {
         type: Number,
-        required: true,
         default: 1,
       },
       createAt: {
