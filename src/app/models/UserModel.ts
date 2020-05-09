@@ -1,17 +1,18 @@
 import mongoose, { Document, Schema, Model, HookNextFunction } from 'mongoose';
-import validator from 'validator';
 import IModel from './IModel';
-import Auth from '../utils/helpers/Auth';
+import Auth from '../helpers/Auth';
 
-interface IUserSchema extends Document {
+export interface IUserSchema extends Document {
   name: string;
-  username: string;
+  email: string;
+  photo: string;
+  role: string;
   password: string;
+  passwordConfirm?: string;
   passwordChangedAt: Date;
-  userType: number;
-  createdAt: string;
-  updatedAt: string;
-  isDeleted: boolean;
+  passwordResetToken: string;
+  passwordResetExpires: Date;
+  active: boolean;
   auth: (password: string) => Promise<boolean>;
   isPasswordChanged: (timestamp: number) => boolean;
 }
@@ -31,34 +32,46 @@ class UserModel implements IModel {
     return new mongoose.Schema({
       name: {
         type: String,
-        required: [true, 'Name is required'],
+        required: true,
         trim: true,
       },
-      username: {
+      email: {
         type: String,
         unique: true,
         trim: true,
       },
+      photo: {
+        type: String,
+        default: 'default.jpg',
+      },
+      role: {
+        type: String,
+        enum: ['user', 'guide', 'lead-guide', 'admin'],
+        default: 'user',
+      },
       password: {
         type: String,
+        required: true,
+        minlength: 8,
         select: false,
       },
+      passwordConfirm: {
+        type: String,
+        required: true,
+        validate: {
+          validator: function (this: IUserSchema, el: string): boolean {
+            return el === this.password;
+          },
+          message: 'Passwords are not the same!',
+        },
+      },
       passwordChangedAt: Date,
-      userType: {
-        type: Number,
-        default: 1,
-      },
-      createAt: {
-        type: Date,
-        default: Date.now(),
-      },
-      updatedAt: {
-        type: Date,
-        default: Date.now(),
-      },
-      isDeleted: {
+      passwordResetToken: String,
+      passwordResetExpires: Date,
+      active: {
         type: Boolean,
-        default: false,
+        default: true,
+        select: false,
       },
     });
   }
@@ -70,13 +83,14 @@ class UserModel implements IModel {
     ) {
       if (!this.isModified('password')) next();
       this.password = await Auth.hash(this.password);
+      this.passwordConfirm = undefined;
     });
 
-    // Not show deleted
+    // Not show inactive
     this.schema.pre<Model<IUserSchema>>(/^find/, function (
       next: HookNextFunction
     ) {
-      this.find({ isDeleted: { $ne: true } });
+      this.find({ active: { $ne: false } });
       next();
     });
   }
@@ -104,7 +118,7 @@ class UserModel implements IModel {
   }
 
   public initModel() {
-    return mongoose.model<IUserSchema>('Users', this.schema);
+    return mongoose.model<IUserSchema>('User', this.schema);
   }
 }
 
