@@ -39,7 +39,7 @@ export default class ModelFactory<T extends Document> {
    * @param req Request body used to create the document
    */
   public async create(req: object) {
-    return await this.model.create(req);
+    return await new this.model(req).save();
   }
 
   /**
