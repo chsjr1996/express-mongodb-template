@@ -33,7 +33,7 @@ This template was build with ExpressJS and Routing Controllers package for clean
 
 ## Installation
 
-- `git clone https://github.com/chsjr1996/express-template.git`
+- `git clone https://github.com/sourcevortex/express-template.git`
 - `npm install`
 - Create a copy of file `.env.example` with name `.env` and fill it
 - `npm run start:dev` **_for run and watch modifications_**
