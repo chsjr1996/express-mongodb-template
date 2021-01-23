@@ -1,8 +1,8 @@
 import { ExpressMiddlewareInterface } from 'routing-controllers';
 import { Request, Response, NextFunction } from 'express';
-import AppError from '../../helpers/AppError';
-import Auth from '../../helpers/Auth';
-import UsersModel from '../../models/UserModel';
+import AppError from '@helper/AppError';
+import Auth from '@helper/Auth';
+import UsersModel from '@model/UserModel';
 
 interface IJWTDecoded {
   id: string;

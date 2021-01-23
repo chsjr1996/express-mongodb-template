@@ -13,13 +13,13 @@ import {
   Req,
   Res,
 } from 'routing-controllers';
-import AuthMiddleware from '../middlewares/AuthMiddleware';
-import CreateUserRequest from '../requests/user/CreateUserRequest';
-import UpdateUserRequest from '../requests/user/UpdateUserRequest';
-import UserModel, { IUserSchema } from '../../models/UserModel';
-import ModelFactory from '../../factories/ModelFactory';
-import Responses from '../../builders/Responses';
-import { whitelist } from '../../../config/validations';
+import AuthMiddleware from '@middleware/AuthMiddleware';
+import CreateUserRequest from '@request/user/CreateUserRequest';
+import UpdateUserRequest from '@request/user/UpdateUserRequest';
+import UserModel, { IUserSchema } from '@model/UserModel';
+import ModelFactory from '@factory/ModelFactory';
+import Responses from '@builder/Responses';
+import { whitelist } from '@config/validations';
 
 @JsonController('/users')
 @UseBefore(AuthMiddleware)

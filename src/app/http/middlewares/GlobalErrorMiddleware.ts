@@ -3,7 +3,7 @@ import {
   ExpressErrorMiddlewareInterface,
 } from 'routing-controllers';
 import { Request, Response, NextFunction } from 'express';
-import envs from '../../../config/app';
+import envs from '@config/app';
 
 interface IError extends Error {
   statusCode: number;

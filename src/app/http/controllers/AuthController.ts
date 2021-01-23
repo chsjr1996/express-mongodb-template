@@ -1,10 +1,10 @@
 import { Response } from 'express';
 import { JsonController, Body, Post, Res } from 'routing-controllers';
-import LoginRequest from '../requests/user/LoginRequest';
-import AppError from '../../helpers/AppError';
-import Auth from '../../helpers/Auth';
-import UserModel from '../../models/UserModel';
-import Responses from '../../builders/Responses';
+import LoginRequest from '@request/user/CreateUserRequest';
+import AppError from '@helper/AppError';
+import Auth from '@helper/Auth';
+import UserModel from '@model/UserModel';
+import Responses from '@builder/Responses';
 
 @JsonController('/auth')
 export default class UserController {

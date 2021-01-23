@@ -1,12 +1,41 @@
 {
-  "name": "express-template",
+  "name": "express-mongodb-template",
   "version": "0.0.1",
-  "description": "Express server with mongoose and decorators for routing.",
+  "description": "Express Template using MongoDB (with mongoose), routing controllers and more...",
   "repository": {
     "type": "git",
     "url": "https://github.com/chsjr1996/express-mongodb-template"
   },
+  "keywords": [
+    "expressjs",
+    "mongoose",
+    "decorators",
+    "typescript"
+  ],
+  "author": "Carlos H.",
+  "license": "MIT",
   "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc:compile": "tsc",
+    "tsc:watch": "tsc -w",
+    "start": "node -r dotenv/config dist/Server.js",
+    "start:dev": "cross-env NODE_ENV=development concurrently --names 'tsc:watch,nodemon' --prefix name 'npm run tsc:watch' 'npm run start:nodemon'",
+    "start:prod": "cross-env NODE_ENV=production concurrently --names 'tsc:watch,node' --prefix name 'npm run tsc:watch' 'npm run start:node'",
+    "start:nodemon": "nodemon -r dotenv/config dist/Server.js",
+    "start:node": "node -r dotenv/config dist/Server.js"
+  },
+  "_moduleAliases": {
+    "@builder": "dist/app/builders",
+    "@factory": "dist/app/factories",
+    "@helper": "dist/app/helpers",
+    "@controller": "dist/app/http/controllers",
+    "@middleware": "dist/app/http/middlewares",
+    "@request": "dist/app/http/requests",
+    "@model": "dist/app/models",
+    "@config": "dist/config",
+    "@util": "dist/utils"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.3.1",
@@ -15,6 +44,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
     "mongoose": "^5.10.19",
     "morgan": "^1.10.0",
     "mquery": "^3.2.3",
@@ -34,22 +64,5 @@
     "nodemon": "^2.0.3",
     "prettier": "^2.0.5",
     "typescript": "^3.8.3"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc:compile": "tsc",
-    "tsc:watch": "tsc -w",
-    "start": "node -r dotenv/config dist/Server.js",
-    "start:dev": "cross-env NODE_ENV=development concurrently --names 'tsc:watch,nodemon' --prefix name 'npm run tsc:watch' 'npm run start:nodemon'",
-    "start:prod": "cross-env NODE_ENV=production concurrently --names 'tsc:watch,nodemon' --prefix name 'npm run tsc:watch' 'npm run start:nodemon'",
-    "start:nodemon": "nodemon -r dotenv/config dist/Server.js"
-  },
-  "keywords": [
-    "expressjs",
-    "mongoose",
-    "decorators",
-    "typescript"
-  ],
-  "author": "Carlos H.",
-  "license": "MIT"
+  }
 }

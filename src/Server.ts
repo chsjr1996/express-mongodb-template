@@ -1,9 +1,10 @@
 import 'reflect-metadata';
+import 'module-alias/register';
 import { useExpressServer } from 'routing-controllers';
 import { Express } from 'express';
 import App from './App';
-import envs from './config/app';
-import GlobalErrorMiddleware from './app/http/middlewares/GlobalErrorMiddleware';
+import envs from '@config/app';
+import GlobalErrorMiddleware from '@middleware/GlobalErrorMiddleware';
 
 class Server {
   constructor() {

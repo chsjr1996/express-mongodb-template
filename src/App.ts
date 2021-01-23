@@ -2,7 +2,7 @@
 import express, { Express } from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
-import envs from './config/app';
+import envs from '@config/app';
 
 export default class App {
   constructor() {

@@ -6,8 +6,8 @@ import {
   QueryFindOneAndUpdateOptions,
 } from 'mongoose';
 import { Query } from 'express-serve-static-core';
-import AdvancedQueries from '../builders/AdvancedQueries';
-import AppError from '../helpers/AppError';
+import AdvancedQueries from '@builder/AdvancedQueries';
+import AppError from '@helper/AppError';
 
 export default class ModelFactory<T extends Document> {
   constructor(model: Model<T>) {
